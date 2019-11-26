@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as Papa from 'papaparse';
 
 @Component({
   selector: 'app-yanglao',
@@ -6,28 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./yanglao.component.css'],
 })
 export class YanglaoComponent implements OnInit {
-  listOfData = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-    },
-  ];
+  listOfData = [];
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    Papa.parse('https://tax.ninghao.org/sites/default/files/data/yanglao.csv', {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: (result, file) => {
+        console.log(result);
+        this.listOfData = result.data;
+      },
+    });
+  }
 }
