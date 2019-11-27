@@ -13,6 +13,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/yanglao/yanglao.module').then(m => m.YanglaoModule),
   },
+  {
+    path: 'yibao',
+    loadChildren: () =>
+      import('./pages/yibao/yibao.module').then(m => m.YibaoModule),
+  },
 ];
 
 @NgModule({
