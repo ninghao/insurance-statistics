@@ -1,15 +1,42 @@
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table
+  #yanglaoTable
+  [nzData]="listOfDisplayData"
+  nzSize="small"
+  [nzPageSize]="20"
+>
   <thead>
     <tr>
-      <th>街道乡镇</th>
-      <th>社区村组</th>
+      <th
+        nzShowFilter
+        [nzFilters]="listOfFilterAddress"
+        (nzFilterChange)="filterAddressChange($event)"
+      >
+        街道乡镇
+      </th>
+      <th nzCustomFilter>
+        社区村组
+        <i
+          nz-th-extra
+          class="ant-table-filter-icon"
+          nz-icon
+          nz-dropdown
+          #dropdown="nzDropdown"
+          nzType="search"
+          [nzDropdownMenu]="menu"
+          [class.ant-table-filter-open]="dropdown.nzVisible"
+          nzTrigger="click"
+          nzPlacement="bottomRight"
+          [nzClickHide]="false"
+          nzTableFilter
+        ></i>
+      </th>
       <th>参保人数</th>
       <th>已交人数</th>
       <th>养老进度</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
+    <tr *ngFor="let data of yanglaoTable.data">
       <td>{{ data['街道乡镇'] }}</td>
       <td>{{ data['社区村组'] }}</td>
       <td>{{ data['参保人数'] }}</td>
@@ -18,3 +45,23 @@
     </tr>
   </tbody>
 </nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="search-box">
+    <input
+      type="text"
+      nz-input
+      placeholder="搜索社区村组"
+      [(ngModel)]="searchValue"
+    />
+    <button
+      nz-button
+      nzSize="small"
+      nzType="primary"
+      (click)="search()"
+      class="search-button"
+    >
+      搜索
+    </button>
+    <button nz-button nzSize="small" (click)="reset()">重置</button>
+  </div>
+</nz-dropdown-menu>
