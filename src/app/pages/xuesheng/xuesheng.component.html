@@ -1,0 +1,59 @@
+<nz-table
+  #yanglaoTable
+  [nzData]="listOfDisplayData"
+  nzSize="small"
+  [nzPageSize]="20"
+>
+  <thead>
+    <tr>
+      <th nzCustomFilter>
+        学校
+        <i
+          nz-th-extra
+          class="ant-table-filter-icon"
+          nz-icon
+          nz-dropdown
+          #dropdown="nzDropdown"
+          nzType="search"
+          [nzDropdownMenu]="menu"
+          [class.ant-table-filter-open]="dropdown.nzVisible"
+          nzTrigger="click"
+          nzPlacement="bottomRight"
+          [nzClickHide]="false"
+          nzTableFilter
+        ></i>
+      </th>
+      <th>参保人数</th>
+      <th>已缴人数</th>
+      <th>缴款进度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of yanglaoTable.data">
+      <td>{{ data['学校'] }}</td>
+      <td>{{ data['参保人数'] }}</td>
+      <td>{{ data['已缴人数'] }}</td>
+      <td>{{ data['缴款进度'] }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="search-box">
+    <input
+      type="text"
+      nz-input
+      placeholder="搜索学校"
+      [(ngModel)]="searchValue"
+    />
+    <button
+      nz-button
+      nzSize="small"
+      nzType="primary"
+      (click)="search()"
+      class="search-button"
+    >
+      搜索
+    </button>
+    <button nz-button nzSize="small" (click)="reset()">重置</button>
+  </div>
+</nz-dropdown-menu>

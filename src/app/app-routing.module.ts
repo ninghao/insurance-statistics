@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/yibao/yibao.module').then(m => m.YibaoModule),
   },
+  {
+    path: 'xuesheng',
+    loadChildren: () =>
+      import('./pages/xuesheng/xuesheng.module').then(m => m.XueShengModule),
+  },
 ];
 
 @NgModule({
